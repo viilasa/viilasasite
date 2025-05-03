@@ -83,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark }) => {
                     <div className={`md:hidden flex flex-col space-y-4 mt-4 pb-4 px-2 absolute top-full left-0 right-0 ${lightModeStyles} ${textColor} ${scrolledStyles} shadow-lg`}>
                         <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className={`${linkHover} block px-2 py-1`}>Services</Link>
                         <Link href="/work" onClick={() => setIsMobileMenuOpen(false)} className={`${linkHover} block px-2 py-1`}>Work</Link>
-                        <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className={`${linkHover} block px-2 py-1`}>Blog</Link>
+                        
                         <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className={`${linkHover} block px-2 py-1`}>Contact</Link>
                     </div>
                 )}
