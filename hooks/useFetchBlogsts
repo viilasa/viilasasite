@@ -1,0 +1,90 @@
+import { useEffect, useState } from 'react';
+
+interface post {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: any; // richText block
+  featuredImage?: {
+    url: string;
+    alt?: string;
+  };
+  author?: {
+    id: string;
+    name: string;
+  };
+  publishedAt?: string;
+  status: string;
+  categories?: any[];
+  tags?: any[];
+}
+
+interface PayloadResponse<T> {
+  docs: T[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+const API_BASE = 'https://vilasacms.vercel.app';
+
+const useFetchposts = () => {
+  const [posts, setposts] = useState<post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchposts = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/posts?depth=2`);
+        if (!res.ok) throw new Error('Failed to fetch posts');
+
+        const data: PayloadResponse<any> = await res.json();
+
+        const formattedposts: post[] = data.docs.map((post: any) => ({
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          excerpt: post.excerpt,
+          content: post.content,
+          featuredImage: post.featuredImage
+            ? {
+                url: `${API_BASE}${post.featuredImage.url}`,
+                alt: post.featuredImage.alt || post.title,
+              }
+            : undefined,
+          author: post.author
+            ? {
+                id: post.author.id,
+                name: post.author.name || 'Unknown',
+              }
+            : undefined,
+          publishedAt: post.publishedAt,
+          status: post.status,
+          categories: post.categories || [],
+          tags: post.tags || [],
+        }));
+
+        setposts(formattedposts);
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchposts();
+  }, []);
+
+  return { posts, loading, error };
+};
+
+export default useFetchposts;

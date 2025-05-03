@@ -1,0 +1,131 @@
+.cardContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0px;
+  background: transparent;
+  padding: 0 20px;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: auto;
+    max-width: 1000px;
+    width: 100%;
+    border-radius: 25px;
+    padding: 30px;
+    transform-origin: top;
+
+    @media (min-width: 768px) {
+      padding: 50px;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-family: 'Gallient', serif;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin-top: 30px;
+      gap: 30px;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        margin-top: 50px;
+        gap: 50px;
+      }
+
+      .description {
+        width: 100%;
+        position: relative;
+
+        @media (min-width: 768px) {
+          width: 40%;
+          top: 10%;
+        }
+
+        p {
+          font-size: clamp(1rem, 2.5vw, 1.2rem);
+          line-height: 1.6;
+          
+          &::first-letter {
+            font-size: clamp(1.75rem, 4.5vw, 2rem);
+            font-family: 'Gallient', serif;
+          }
+        }
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 20px;
+        }
+      }
+
+      .imageContainer {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        border-radius: 25px;
+        overflow: hidden;
+
+        @media (min-width: 768px) {
+          width: 60%;
+          height: 400px;
+        }
+
+        .inner {
+          width: 100%;
+          height: 100%;
+          position: relative;
+        }
+
+        img {
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cardContainer {
+    padding: 0 10px;
+    
+    .card {
+      padding: 20px;
+      top: calc(-2.5vh + var(--card-index) * 15px) !important;
+      
+      h2 {
+        font-size: 1.25rem;
+      }
+      
+      .body {
+        margin-top: 20px;
+        gap: 20px;
+        
+        .description {
+          p {
+            font-size: 0.875rem;
+            
+            &::first-letter {
+              font-size: 1.25rem;
+            }
+          }
+        }
+        
+        .imageContainer {
+          height: 200px;
+        }
+      }
+    }
+  }
+}

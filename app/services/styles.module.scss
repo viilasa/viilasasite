@@ -1,0 +1,362 @@
+/* === styles.module.scss === */
+
+/* Positioning classes for background and content */
+.backgroundEffect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;      /* Behind content */
+  overflow: hidden; /* Prevent scrollbars from canvas */
+}
+
+.contentWrapper {
+  position: relative; /* Stacking context */
+  z-index: 1;      /* Above background */
+  background-color: transparent; /* DO NOT BLOCK background effect */
+}
+
+/* Main page styles (applied to <main>) */
+.servicesPage {
+  /* background: white; */ /* REMOVED - This was hiding the background effect */
+  background: transparent; /* Ensure main area doesn't block background */
+
+  /* Styles for specific sections from user's code */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px;
+    /* Optional gradient - adjust if it clashes with Hyperspeed */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+    text-align: center;
+    position: relative;
+
+    .content {
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+
+      /* Style for the paragraph below the dynamic text */
+      p {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+        /* color: #666; */ /* Original - Poor contrast */
+        color: #000000; /* Light gray for contrast */
+        margin-bottom: 2rem;
+        // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+      }
+
+      /* CTA button styling - seems okay */
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #000; /* Consider slightly lighter if Hyperspeed is pure black */
+        color: #fff;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #333;
+          transform: translateY(-2px);
+          .arrow { transform: translateX(5px); }
+        }
+        .arrow { transition: transform 0.3s ease; }
+      }
+    }
+    /* Style for the VariableProximity text */
+    .variable-proximity-demo {
+        color: #FFFFFF; /* White text */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+        /* Inherits font-size/line-height from JS props */
+    }
+  }
+
+  /* Common styles for section padding and headers */
+  .packages,
+  .testimonials,
+  .faq,
+  .contact {
+    padding: 100px 20px;
+
+    .header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+
+      h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-family: 'Gallient', serif;
+        margin-bottom: 1rem;
+        color: #000000; /* Light header text */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Shadow */
+      }
+
+      p {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        /* color: #666; */ /* Original - Poor contrast */
+        color: #000000; /* Lighter gray */
+        // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Shadow */
+      }
+    }
+  }
+
+  /* Specific section background gradients (Subtle) */
+   .packages {
+     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.03));
+   }
+   .faq {
+     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.03), transparent);
+   }
+   /* .testimonials, .contact remain transparent unless a common overlay is added */
+
+  /* Packages Grid and Card styles */
+  .packages .grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    @media (min-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .package {
+    /* Glassmorphism Card */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    &.popular {
+      /* Opaque Black Popular Card */
+      background: #000;
+      color: #fff;
+      transform: scale(1.05);
+      border: 1px solid #444; /* Add slight border to popular */
+
+      /* Override text colors inside popular card */
+      .packageHeader h3 { color: #fff; }
+      .packageHeader .price { color: #ffffff !important; }
+      .packageHeader p { color: #bbb; } /* Lighter gray description */
+      .featureItem { color: #eee; } /* Light feature text */
+      .checkIcon { color: #fff; } /* White check icon */
+
+      .button { /* Button inside popular */
+        background: #fff;
+        color: #000;
+        &:hover { background: rgba(255, 255, 255, 0.9); }
+      }
+    }
+
+    /* Default text colors inside non-popular package card */
+    .packageHeader {
+      text-align: center;
+      margin-bottom: 30px;
+      h3 { font-size: 1.8rem; font-family: 'Gallient', serif; margin-bottom: 15px; color: #1a1a1a; } /* Darker heading */
+      .price { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; color: #000; }
+      p { color: #555; font-size: 1rem; } /* Darker gray */
+    }
+
+    .features { list-style: none; padding: 0; margin: 20px 0 30px 0; } /* Added bottom margin */
+    .featureItem {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      color: #475569; /* Default dark feature text */
+      font-size: 0.95rem;
+      line-height: 1.5;
+      &:last-child { margin-bottom: 0; }
+      .checkIcon { width: 18px; height: 18px; color: #3b82f6; margin-right: 10px; flex-shrink: 0; margin-top: 3px; }
+      span { flex: 1; }
+    }
+    .noFeatures { color: #94a3b8; font-style: italic; text-align: center; padding: 10px 0; }
+
+    .button { /* Default button inside non-popular */
+      display: block;
+      text-align: center;
+      background: #000;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: auto; /* Push button to bottom if card height varies */
+      &:hover { background: #333; }
+    }
+    .popularBadge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.3); /* Darker badge bg */
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #fff; /* White text */
+      backdrop-filter: blur(5px); /* Blur badge */
+    }
+  }
+
+ /* Testimonials Section */
+ .testimonials {
+   .testimonialGrid {
+     display: grid;
+     grid-template-columns: repeat(1, 1fr);
+     gap: 30px;
+     max-width: 1400px;
+     margin: 0 auto;
+     @media (min-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+     @media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
+   }
+
+   .testimonial {
+     /* Glassmorphism Card */
+     background: rgba(255, 255, 255, 0.8);
+     backdrop-filter: blur(10px);
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     border-radius: 20px;
+     padding: 30px;
+     transition: all 0.3s ease;
+     &:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+
+     /* Text inside testimonial card */
+     .quote { font-size: 1rem; color: #333; margin-bottom: 20px; line-height: 1.6; }
+     .author {
+       .name { font-weight: bold; margin-bottom: 5px; color: #000; }
+       .role { font-size: 0.9rem; color: #666; }
+     }
+   }
+ }
+
+
+ /* FAQ Section */
+ .faq {
+    .faqContainer {
+      max-width: 800px;
+      margin: 0 auto;
+
+      /* Styling for ShadCN/UI Accordion Items */
+      /* These selectors target data attributes and might need adjustment */
+      [data-state] { /* Targets AccordionItem */
+         background: rgba(255, 255, 255, 0.8);
+         backdrop-filter: blur(10px);
+         border: 1px solid rgba(255, 255, 255, 0.2);
+         border-radius: 15px;
+         margin-bottom: 15px;
+         overflow: hidden; /* Contain backdrop filter */
+
+         &:last-child { margin-bottom: 0; }
+
+         h3[data-state] button[data-state] { /* Targets AccordionTrigger button */
+            color: #000 !important; /* Dark trigger text */
+            font-weight: 600;
+            text-align: left;
+            padding: 15px 20px; /* Adjust padding */
+            /* Add hover styles if needed */
+            // &:hover { background-color: rgba(0,0,0,0.05); }
+         }
+         div[data-state="open"] { /* Targets AccordionContent when open */
+           color: #333; /* Dark content text */
+           background-color: rgba(255, 255, 255, 0.5); /* Slightly different bg for content */
+           padding: 15px 20px; /* Adjust padding */
+         }
+      }
+    }
+  }
+
+ /* Contact Section */
+ .contact {
+   .formContainer {
+     max-width: 600px;
+     margin: 0 auto;
+     /* Glassmorphism Form Container */
+     background: rgba(255, 255, 255, 0.8);
+     backdrop-filter: blur(10px);
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     border-radius: 20px;
+     padding: 40px;
+
+     .form {
+       display: grid;
+       gap: 20px;
+
+       .formGroup {
+         input, select, textarea {
+           width: 100%;
+           padding: 12px 15px; /* Adjust padding */
+           border: 1px solid rgba(0, 0, 0, 0.1);
+           border-radius: 8px;
+           font-size: 1rem;
+           transition: all 0.3s ease;
+           background-color: rgba(255, 255, 255, 0.7); /* Input background */
+           color: #000; /* Input text color */
+
+           &:focus {
+             outline: none;
+             border-color: #000;
+             background-color: rgba(255, 255, 255, 0.9);
+           }
+           &::placeholder { color: #666; }
+         }
+         textarea { resize: vertical; min-height: 100px; }
+       }
+
+       .submitButton {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 8px;
+         background: #000;
+         color: #fff;
+         padding: 15px;
+         border: none;
+         border-radius: 8px;
+         font-size: 1rem;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         &:hover {
+           background: #333;
+           .arrow { transform: translateX(5px); }
+         }
+         .arrow { transition: transform 0.3s ease; }
+       }
+     }
+   }
+ }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .servicesPage {
+    .hero { padding: 100px 20px; }
+
+    .packages, .testimonials, .faq, .contact {
+      padding: 60px 20px;
+      .header { margin-bottom: 40px; }
+    }
+
+    .package {
+      padding: 30px;
+      &.popular { transform: scale(1); } /* Disable scale on mobile */
+      .packageHeader {
+        h3 { font-size: 1.5rem; }
+        .price { font-size: 2rem; }
+      }
+    }
+    .formContainer { padding: 30px; }
+  }
+}

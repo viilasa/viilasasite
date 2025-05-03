@@ -1,0 +1,53 @@
+.workPage {
+  padding-top: 100px;
+  min-height: 100vh;
+  background: white;
+
+  .header {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-family: 'Gallient', serif;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .gallerySection {
+    margin: 40px 0 80px;
+  }
+
+  .portfolioSection {
+    padding: 0;
+    margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .workPage {
+    padding-top: 80px;
+
+    .header {
+      padding: 40px 20px;
+    }
+
+    .gallerySection {
+      margin: 20px 0 60px;
+    }
+
+    .portfolioSection {
+      margin-bottom: 60px;
+    }
+  }
+}

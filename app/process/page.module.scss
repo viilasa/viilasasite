@@ -1,0 +1,15 @@
+.main {
+  position: relative;
+  padding: 50px 0;
+  background: transparent;
+
+  @media (min-width: 768px) {
+    padding-bottom: 10vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 30px 0;
+  }
+}

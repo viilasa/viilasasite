@@ -1,0 +1,41 @@
+.shiny-text {
+    /* * IMPORTANT: Text color MUST be transparent for the background clip to work.
+     * The perceived color comes from the background gradient showing through.
+     * You can control the base appearance via the gradient itself or parent color.
+     */
+    color: transparent; 
+  
+    background: linear-gradient(
+      120deg,
+      rgb(0, 0, 0) 40%, /* Start transparent */
+      rgb(174, 174, 174) 50%, /* Brighter shine in the middle */
+      rgb(0, 0, 0) 60%  /* End transparent */
+    );
+    background-size: 200% 100%; /* Make gradient wider than text */
+    -webkit-background-clip: text; /* Clip background to text shape (WebKit) */
+    background-clip: text;       /* Clip background to text shape (Standard) */
+    display: inline-block;       /* Ensures proper rendering */
+  
+    /* * Use CSS variable for duration, with a fallback.
+     * The variable will be set by the React component's inline style.
+     */
+    animation: shine var(--shine-duration, 5s) linear infinite; 
+  }
+  
+  /* Keep the keyframes as they are correct */
+  @keyframes shine {
+    0% {
+      background-position: 100%; /* Start shine off-screen to the right */
+    }
+    100% {
+      background-position: -100%; /* End shine off-screen to the left */
+    }
+  }
+  
+  /* Correctly disables animation when 'disabled' class is present */
+  .shiny-text.disabled {
+    animation: none;
+    /* Optionally reset background if you don't want static gradient on disabled */
+    /* background: none; */
+    /* color: #some-disabled-color; /* Set a visible color when disabled */
+  }

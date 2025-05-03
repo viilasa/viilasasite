@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gallient";
+  src: url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.eot");
+  src: url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/ecce6fb92d2957e8e04867dc281f666b.svg#Gallient Regular")format("svg");
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-white text-foreground;
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Gallient', serif;
+    text-transform: none;
+  }
+  p {
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* True Focus Text Effect */
+@keyframes trueFocus {
+  0% {
+    letter-spacing: 0.5em;
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    letter-spacing: normal;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.true-focus {
+  animation: trueFocus 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Text Container */
+.text-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Initial Text Animation */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.text-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium Text Animation */
+.premium-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-delay: 0.8s;
+}
+
+.premium-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll Section */
+.scroll-section {
+  height: 300vh;
+  position: relative;
+}
+
+.sticky-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.text-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.25em;
+  padding: 0 1rem;
+}
+
+/* Service Cards Animation */
+.service-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.2s);
+}
+
+/* === Loader CSS === */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #000; /* You might want to change this color */
+}
+
+.loader::before {
+  box-shadow: -25px 0; /* Creates the left dot */
+  animation: l8-1 1s infinite linear;
+}
+
+.loader::after {
+  transform: rotate(0deg) translateX(25px); /* Positions the right dot */
+  animation: l8-2 1s infinite linear;
+}
+
+@keyframes l8-1 {
+  100% { transform: translateX(25px); } /* Moves left dot to center */
+}
+
+@keyframes l8-2 {
+  100% { transform: rotate(-180deg) translateX(25px); } /* Rotates right dot to center */
+}
+/* === End Loader CSS === */
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Service Block Animation */
+.service-block {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@media (min-width: 640px) {
+  .text-wrapper {
+    gap: 0.5em;
+  }
+}
+
