@@ -7,9 +7,9 @@ import styles from './Contact.module.scss';
 
 const topics = [
   "Website Development",
-  "Digital Marketing",
+  //"Digital Marketing",
   "Brand Identity",
-  "UI/UX Design",
+  //"UI/UX Design",
   "Other"
 ];
 
