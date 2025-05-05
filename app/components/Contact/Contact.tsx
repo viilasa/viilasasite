@@ -60,7 +60,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const formSubmitEndpoint = 'https://formsubmit.co/viilasacontact@email.com';
+      const formSubmitEndpoint = 'https://formsubmit.co/viilasacontact@gmail.com';
       const formData = new FormData(e.target as HTMLFormElement);
       
       const response = await fetch(formSubmitEndpoint, {
@@ -149,7 +149,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <form onSubmit={handleSubmit} className={styles.form} action="https://formsubmit.co/viilasacontact@email.com" method="POST">
+          <form onSubmit={handleSubmit} className={styles.form} action="https://formsubmit.co/viilasacontact@gmail.com" method="POST">
             <div className={styles.formGroup}>
               <input
                 type="text"
