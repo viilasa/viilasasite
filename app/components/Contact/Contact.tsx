@@ -59,21 +59,34 @@ export default function Contact() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const formSubmitEndpoint = 'https://formsubmit.co/viilasacontact@email.com';
+      const formData = new FormData(e.target as HTMLFormElement);
+      
+      const response = await fetch(formSubmitEndpoint, {
+        method: 'POST',
+        body: formData
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      topic: '',
-      message: ''
-    });
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSuccess(false), 5000);
+      setIsSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        topic: '',
+        message: ''
+      });
+
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -136,7 +149,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form onSubmit={handleSubmit} className={styles.form} action="https://formsubmit.co/viilasacontact@email.com" method="POST">
             <div className={styles.formGroup}>
               <input
                 type="text"
@@ -145,6 +158,7 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Full Name *"
                 className={errors.name ? styles.error : ''}
+                required
               />
               {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
             </div>
@@ -158,6 +172,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Email Address *"
                   className={errors.email ? styles.error : ''}
+                  required
                 />
                 {errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
               </div>
@@ -179,6 +194,7 @@ export default function Contact() {
                 value={formData.topic}
                 onChange={handleChange}
                 className={errors.topic ? styles.error : ''}
+                required
               >
                 <option value="">Select Topic *</option>
                 {topics.map(topic => (
@@ -196,6 +212,7 @@ export default function Contact() {
                 placeholder="Your Message *"
                 rows={5}
                 className={errors.message ? styles.error : ''}
+                required
               />
               {errors.message && <span className={styles.errorMessage}>{errors.message}</span>}
             </div>
